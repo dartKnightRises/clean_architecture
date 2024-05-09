@@ -4,7 +4,7 @@ A new Flutter project for understanding clean architecture.
 
 ## Explaination
 
-Routes Manager file is added in presentation directory and presentation directory is restructured.
+String Manager file is added in resources directory of presentation directory
 
 ## Getting Started
 
