@@ -4,7 +4,7 @@ A new Flutter project for understanding clean architecture.
 
 ## Explaination
 
-String Manager file is added in resources directory of presentation directory
+Image assets is created and it is available in all the sizes.
 
 ## Getting Started
 
