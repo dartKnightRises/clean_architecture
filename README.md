@@ -4,52 +4,51 @@ A new Flutter project for understanding clean architecture.
 
 ## Explaination
 
-This code defines several functions that return `TextStyle` objects with predefined characteristics. Let's break it down step by step:
+This code defines a function named `getApplicationTheme` that returns a `ThemeData` object. This `ThemeData` object defines the overall theme of the application, including colors, typography, and widget styles. Let's break down the different sections of this function:
 
-1. **Import Statement**: This line imports the material package from Flutter, which contains widgets and classes for building UIs.
+1. **Primary Colors and Splash Color**: These settings define the primary colors used throughout the application, such as the primary color, light and dark variations of the primary color, and the color used for disabled elements. The `splashColor` is the color that appears when a user taps on a touchable widget, like a button.
+
+2. **Card Theme**: This section defines the theme for card views in the application, including the background color, shadow color, and elevation (the relative depth of the card).
+
+3. **App Bar Theme**: Here, the theme for the app bar is defined, including whether the title should be centered, the background color, elevation, shadow color, and title text style.
+
+4. **Button Theme and Elevated Button Theme**: These sections define the theme for regular buttons and elevated buttons, respectively. It includes settings such as button shape, disabled color, button color, splash color, and text style.
+
+5. **Text Theme**: This part defines various text styles used throughout the application, such as display large, title medium, body small, and body large. Each style includes settings for color and font size.
+
+6. **Input Decoration Theme**: This section defines the theme for input fields, such as text form fields. It includes settings for content padding, hint style, label style, error style, and border styles for different states (enabled, focused, error, etc.).
+
+Overall, `getApplicationTheme` returns a `ThemeData` object that encapsulates various design choices for the application's visual appearance, ensuring consistency and coherence across different parts of the user interface.
+
+The `ThemeData` object returned by the `getApplicationTheme` function in the provided code doesn't explicitly define settings for a dark theme. However, Flutter's `ThemeData` class supports both light and dark themes, and you can define different theme settings for each mode.
+
+To support both light and dark themes, you would typically define two separate `ThemeData` objects: one for the light theme and one for the dark theme. Each `ThemeData` object would include settings tailored to its respective theme mode.
+
+Here's how you can modify the `getApplicationTheme` function to support both light and dark themes:
 
 ```dart
-import 'package:flutter/material.dart';
-```
-
-2. **Import Font Manager**: This line imports a file named `font_manager.dart`, which likely contains constants or definitions related to fonts used in the application.
-
-```dart
-import 'font_manager.dart';
-```
-
-3. **Private Function `_getTextStyle`**: This function takes four parameters: `fontSize`, `fontFamily`, `fontWeight`, and `color`, and returns a `TextStyle` object with the specified characteristics.
-
-```dart
-TextStyle _getTextStyle(
-    double fontSize, String fontFamily, FontWeight fontWeight, Color color) {
-  return TextStyle(
-      fontSize: fontSize,
-      fontFamily: fontFamily,
-      color: color,
-      fontWeight: fontWeight);
+ThemeData getApplicationTheme(bool isDarkMode) {
+  if (isDarkMode) {
+    return ThemeData.dark().copyWith(
+      // Define dark theme settings here
+      // For example:
+      primaryColor: Colors.blue,
+      // Other dark theme settings...
+    );
+  } else {
+    return ThemeData.light().copyWith(
+      // Define light theme settings here
+      // For example:
+      primaryColor: Colors.blue,
+      // Other light theme settings...
+    );
+  }
 }
 ```
 
-4. **Text Style Functions**: Below are several functions, each representing a specific text style. Each function takes two parameters: `fontSize` and `color`, with `fontSize` having a default value of `FontSize.s12` and `color` being required. These functions utilize the `_getTextStyle` function to create the desired `TextStyle` object.
+In this modified version of `getApplicationTheme`, the function takes a boolean parameter `isDarkMode`, which indicates whether the app is in dark mode. Based on the value of `isDarkMode`, the function returns either a dark theme or a light theme using `ThemeData.dark()` and `ThemeData.light()`, respectively. You can then customize the theme settings for each mode as needed.
 
-    - `getRegularStyle`: Returns a regular text style.
-    - `getLightStyle`: Returns a light text style.
-    - `getBoldStyle`: Returns a bold text style.
-    - `getSemiBoldStyle`: Returns a semi-bold text style.
-    - `getMediumStyle`: Returns a medium text style.
-
-```dart
-TextStyle getRegularStyle(
-    {double fontSize = FontSize.s12, required Color color}) {
-  return _getTextStyle(
-      fontSize, FontConstants.fontFamily, FontWeightManager.regular, color);
-}
-
-// Other text style functions follow the same pattern...
-```
-
-Each of these functions provides a convenient way to obtain a `TextStyle` object with predefined characteristics such as font size, font family, font weight, and color, reducing redundancy and improving code readability when applying consistent text styles throughout the application.
+By doing this, your app will adapt its visual appearance to either light or dark mode based on the user's preference or system settings.
 
 ## Getting Started
 
