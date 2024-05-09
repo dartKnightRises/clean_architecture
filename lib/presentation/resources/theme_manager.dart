@@ -1,6 +1,6 @@
 
-import 'package:clean_architecture/presentation/style_manager.dart';
-import 'package:clean_architecture/presentation/value_manager.dart';
+import 'package:clean_architecture/presentation/resources/style_manager.dart';
+import 'package:clean_architecture/presentation/resources/value_manager.dart';
 import 'package:flutter/material.dart';
 
 import 'color_manager.dart';
