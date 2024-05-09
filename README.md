@@ -4,7 +4,7 @@ A new Flutter project for understanding clean architecture.
 
 ## Explaination
 
-This code is a basic example of a singleton implementation in Flutter using a `StatefulWidget`. Let's break it down:
+This code defines a `ColorManager` class and an extension method `HexColor` on the `Color` class in Flutter. Let's break it down:
 
 1. **Import Statement**: This line imports the material package from Flutter, which contains widgets and classes for building UIs.
 
@@ -12,47 +12,35 @@ This code is a basic example of a singleton implementation in Flutter using a `S
 import 'package:flutter/material.dart';
 ```
 
-2. **`MyApp` Class**: This class represents the main application. It extends `StatefulWidget`, indicating that its state can change during the lifetime of the widget.
+2. **ColorManager Class**: This class holds static properties representing different colors. Each color is defined using the `HexColor.fromHex` method, which converts a hexadecimal color string to a `Color` object.
 
 ```dart
-class MyApp extends StatefulWidget 
+class ColorManager {
+  static Color primary = HexColor.fromHex("#ED9728");
+  static Color darkGrey = HexColor.fromHex("#525252");
+  static Color grey = HexColor.fromHex("#737477");
+  static Color lightGrey = HexColor.fromHex("#9E9E9E");
+  static Color primaryOpacity70 = HexColor.fromHex("#B3ED9728");
+}
 ```
 
-3. **Private Named Constructor**: `_internal` is a private named constructor, meaning it can only be accessed from within the class or its subclasses.
+3. **Extension Method**: This extension method extends the functionality of the `Color` class. It provides a static method `fromHex` that takes a hexadecimal color string as input and returns a `Color` object corresponding to that color.
 
 ```dart
-  MyApp._internal() // private named constructor
-```
-
-4. **Static Singleton Instance**: `instance` is a static final variable of type `MyApp`, which holds a single instance of the `MyApp` class. This follows the Singleton design pattern, ensuring only one instance of `MyApp` exists throughout the application.
-
-```dart
-  static final MyApp instance = MyApp._internal();
-```
-
-5. **Factory Constructor**: The `factory` constructor allows for custom instantiation logic. In this case, it returns the `instance` variable, ensuring that whenever someone tries to create a new `MyApp` object, they get the same instance.
-
-```dart
-  factory MyApp() => instance;
-```
-
-6. **`_MyAppState` Class**: This class represents the state of the `MyApp` widget. It extends `State<MyApp>`.
-
-```dart
-class _MyAppState extends State<MyApp> 
-```
-
-7. **`build` Method**: This method is required to build the UI of the widget. In this example, it returns a simple `Container`. You would typically replace this with your actual UI components.
-
-```dart
-  @override
-  Widget build(BuildContext context) {
-    return Container();
+extension HexColor on Color {
+  static Color fromHex(String hexColorString) {
+    hexColorString = hexColorString.replaceAll('#', '');
+    if (hexColorString.length == 6) {
+      hexColorString = "FF$hexColorString"; // 8 char with opacity 100%
+    }
+    return Color(int.parse(hexColorString, radix: 16));
   }
-
+}
 ```
 
-Overall, this code sets up a `MyApp` class with a Singleton pattern, ensuring that only one instance of `MyApp` exists throughout the application's lifecycle.
+This extension method allows you to directly convert hexadecimal color strings to `Color` objects without having to create an instance of the `Color` class explicitly.
+
+Overall, this code provides a convenient way to manage and use colors in a Flutter application by defining them statically and allowing conversion from hexadecimal color strings.
 
 ## Getting Started
 
