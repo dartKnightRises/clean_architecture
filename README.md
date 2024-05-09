@@ -4,7 +4,7 @@ A new Flutter project for understanding clean architecture.
 
 ## Explaination
 
-Image assets is created and it is available in all the sizes.
+Splash screen is created and it will open onboarding screen after 2 seconds.
 
 ## Getting Started
 
