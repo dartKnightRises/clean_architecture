@@ -4,7 +4,7 @@ A new Flutter project for understanding clean architecture.
 
 ## Explaination
 
-Font Manager file is added in presentation directory and it contains various types of fonts.
+Value Manager file is added in presentation directory and it contains padding, margin and app sizes values.
 
 ## Getting Started
 
