@@ -4,7 +4,7 @@ A new Flutter project for understanding clean architecture.
 
 ## Explaination
 
-Font Manager file is added in presentation directory and it contains various types of fonts.
+Routes Manager file is added in presentation directory and presentation directory is restructured.
 
 ## Getting Started
 
