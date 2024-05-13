@@ -4,7 +4,7 @@ A new Flutter project for understanding clean architecture.
 
 ## Explanation
 
-Mapper file is added and it convert response to non nullable object.
+Create Repository for login request.
 
 ## Getting Started
 
