@@ -26,14 +26,14 @@ class Customer {
 class Contacts {
   String email;
   String phone;
-  String link;
 
-  Contacts(this.email, this.phone, this.link);
+
+  Contacts(this.email, this.phone);
 }
 
 class Authentication {
-  Customer customer;
-  Contacts contacts;
+  Customer? customer;
+  Contacts? contacts;
 
   Authentication(this.customer, this.contacts);
 }

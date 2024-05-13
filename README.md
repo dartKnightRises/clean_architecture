@@ -4,7 +4,7 @@ A new Flutter project for understanding clean architecture.
 
 ## Explanation
 
-Api and their Response classes are created inside network and responses directory respectively inside data layer.
+Mapper file is added and it convert response to non nullable object.
 
 ## Getting Started
 
