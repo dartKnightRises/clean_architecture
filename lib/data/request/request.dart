@@ -2,7 +2,7 @@ class LoginRequest{
   String username;
   String password;
   String iemi;
-  String device_type;
+  String deviceType;
 
-  LoginRequest(this.username,this.password,this.iemi,this.device_type);
+  LoginRequest(this.username,this.password,this.iemi,this.deviceType);
 }
