@@ -4,7 +4,7 @@ A new Flutter project for understanding clean architecture.
 
 ## Explanation
 
-Added network checker.
+Error handler added and repository is implemented.
 
 ## Getting Started
 
