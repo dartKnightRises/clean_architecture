@@ -4,9 +4,11 @@ class Constants{
  static const String empty = "";
  static const int zero = 0;
 
- static const int loginErrorCode = 401;
- static const String loginError = "We have business logic login error from API";
+ static const String token = "Your api token";
 
- static const int networkErrorCode = 501;
- static const String networkError = "Please check your internet connection";
+ // static const int loginErrorCode = 401;
+ // static const String loginError = "We have business logic login error from API";
+ //
+ // static const int networkErrorCode = 501;
+ // static const String networkError = "Please check your internet connection";
 }

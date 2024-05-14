@@ -163,3 +163,8 @@ class ResponseMessage {
   static const String NO_INTERNET_CONNECTION =
       "Please check your internet connection";
 }
+
+class ApiInternalStatusCode{
+  static const int SUCCESS = 0;
+  static const int FAILURE = 1;
+}

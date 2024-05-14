@@ -1,6 +1,7 @@
 import 'package:clean_architecture/app/constants.dart';
 import 'package:clean_architecture/data/data_source/remote_data_source.dart';
 import 'package:clean_architecture/data/mapper/mapper.dart';
+import 'package:clean_architecture/data/network/error_handler.dart';
 import 'package:clean_architecture/data/network/failure.dart';
 import 'package:clean_architecture/data/network/network_info.dart';
 import 'package:clean_architecture/data/request/request.dart';
@@ -19,23 +20,29 @@ class RepositoryImpl implements Repository {
   RepositoryImpl(this.remoteDataSource, this.networkInfo);
 
   @override
-  Future<Either<Failure, Authentication>> login(LoginRequest loginRequest) async {
+  Future<Either<Failure, Authentication>> login(
+      LoginRequest loginRequest) async {
     // Check if the device is connected to the internet
     if (await networkInfo.isConnected) {
-      // Safe to call the API since the device is connected to the internet
-      final response = await remoteDataSource.login(loginRequest);
+      try {
+        // Safe to call the API since the device is connected to the internet
+        final response = await remoteDataSource.login(loginRequest);
 
-      // Check if the API response status indicates success
-      if (response.status == Constants.zero) {
-        // Convert the response to a domain model and return it wrapped in a Right (success) object
-        return Right(response.toDomain());
-      } else {
-        // Return a business logic error wrapped in a Left (failure) object
-        return left(Failure(Constants.loginErrorCode, response.message ?? Constants.loginError));
+        // Check if the API response status indicates success
+        if (response.status == Constants.zero) {
+          // Convert the response to a domain model and return it wrapped in a Right (success) object
+          return Right(response.toDomain());
+        } else {
+          // Return a business logic error wrapped in a Left (failure) object
+          return left(Failure(response.status ?? ApiInternalStatusCode.FAILURE,
+              response.message ?? ResponseMessage.DEFAULT));
+        }
+      } catch (error) {
+        return (Left(ErrorHandler.handle(error).failure));
       }
     } else {
       // Device is not connected to the internet, return a network error wrapped in a Left (failure) object
-      return left(Failure(Constants.networkErrorCode, Constants.networkError));
+      return left(DataSource.NO_INTERNET_CONNECTION.getFailure());
     }
   }
 }
