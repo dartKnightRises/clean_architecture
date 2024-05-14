@@ -14,3 +14,26 @@ class SliderViewObject {
 
   SliderViewObject(this.sliderObject, this.numOfSlides, this.currentIndex);
 }
+
+class Customer {
+  String id;
+  String name;
+  int projects;
+
+  Customer(this.id, this.name, this.projects);
+}
+
+class Contacts {
+  String email;
+  String phone;
+
+
+  Contacts(this.email, this.phone);
+}
+
+class Authentication {
+  Customer? customer;
+  Contacts? contacts;
+
+  Authentication(this.customer, this.contacts);
+}
