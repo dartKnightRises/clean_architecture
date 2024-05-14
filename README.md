@@ -4,7 +4,7 @@ A new Flutter project for understanding clean architecture.
 
 ## Explanation
 
-Create Repository for login request.
+Added network checker.
 
 ## Getting Started
 
