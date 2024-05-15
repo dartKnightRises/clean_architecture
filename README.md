@@ -4,7 +4,7 @@ A new Flutter project for understanding clean architecture.
 
 ## Explanation
 
-Error handler added and repository is implemented.
+Shared preferences for language is added.
 
 ## Getting Started
 
