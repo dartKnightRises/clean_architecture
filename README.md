@@ -4,7 +4,7 @@ A new Flutter project for understanding clean architecture.
 
 ## Explanation
 
-Shared preferences for language is added.
+Base and Login Use case added.
 
 ## Getting Started
 
