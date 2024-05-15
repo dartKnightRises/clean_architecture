@@ -4,7 +4,7 @@ A new Flutter project for understanding clean architecture.
 
 ## Explanation
 
-Error handler added and repository is implemented.
+Base and Login Use case added.
 
 ## Getting Started
 

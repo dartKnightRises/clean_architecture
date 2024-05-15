@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:clean_architecture/presentation/base/base_view_model.dart';
 
-import '../../domain/model.dart';
+import '../../domain/model/model.dart';
 import '../resources/assets_manager.dart';
 import '../resources/strings_manager.dart';
 

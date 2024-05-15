@@ -4,7 +4,7 @@
 import 'package:clean_architecture/app/constants.dart';
 import 'package:clean_architecture/app/extensions.dart';
 import 'package:clean_architecture/data/responses/responses.dart';
-import 'package:clean_architecture/domain/model.dart';
+import 'package:clean_architecture/domain/model/model.dart';
 
 
 // This extension method converts a nullable CustomerResponse object into a non-nullable Customer domain object.
