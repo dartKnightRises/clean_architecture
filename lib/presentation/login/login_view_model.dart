@@ -17,7 +17,7 @@ class LoginViewModel extends BaseViewModel
   // Initial login object with empty username and password  
   var loginObject = LoginObject('', ''); 
   
-  LoginUseCase loginUseCase;
+  LoginUseCase? loginUseCase;  // todo remove ?
   LoginViewModel(this.loginUseCase);
 
   @override
@@ -42,7 +42,7 @@ class LoginViewModel extends BaseViewModel
   void login() async{
     // Placeholder for the login method which should handle login logic
     // Currently, it throws an UnimplementedError as it is not yet implemented
-    (await loginUseCase.execute(LoginUseCaseInput(loginObject.userName, loginObject.password))).fold(
+    (await loginUseCase?.execute(LoginUseCaseInput(loginObject.userName, loginObject.password)))?.fold(
             (failure) => {
           // left -> failure
           print(failure.message)
