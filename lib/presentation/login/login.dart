@@ -1,3 +1,8 @@
+import 'package:clean_architecture/app/dependency_injection.dart';
+import 'package:clean_architecture/data/data_source/remote_data_source.dart';
+import 'package:clean_architecture/data/repository/repository_impl.dart';
+import 'package:clean_architecture/domain/repository/repository.dart';
+import 'package:clean_architecture/domain/usecase/login_usecase.dart';
 import 'package:clean_architecture/presentation/login/login_view_model.dart';
 import 'package:clean_architecture/presentation/resources/color_manager.dart';
 import 'package:clean_architecture/presentation/resources/value_manager.dart';
@@ -16,7 +21,8 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
 
-  LoginViewModel loginViewModel = LoginViewModel(null);    //todo pass login use case
+
+  LoginViewModel loginViewModel = instance<LoginViewModel>();
 
   TextEditingController userNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -36,13 +42,13 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return _getContentWidget();
   }
 
   Widget _getContentWidget(){
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.only(top: AppPadding.p100),
+        padding: const EdgeInsets.only(top: AppPadding.p100),
         color: ColorManager.white,
         child: SingleChildScrollView(
           child: Form(
@@ -87,7 +93,21 @@ class _LoginViewState extends State<LoginView> {
                         ),
                       );
                     },
-                  ),)
+                  ),),
+                const SizedBox(height: AppSize.s28),
+                Padding(padding: const EdgeInsets.only(
+                    left: AppPadding.p28, right: AppPadding.p28),
+                    child: StreamBuilder<bool>(
+                      stream: loginViewModel.outputIsAllInputsValid,
+                      builder: (context, snapshot) {
+                      return ElevatedButton(
+                          onPressed: (snapshot.data ?? false)
+                              ? () {
+                            loginViewModel.login();
+                          } : null, child: const Text(AppStrings.login));
+                    },
+                    )
+                )
               ],
             ),
           ),

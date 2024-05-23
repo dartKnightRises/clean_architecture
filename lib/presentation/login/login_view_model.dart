@@ -14,16 +14,20 @@ class LoginViewModel extends BaseViewModel
   StreamController<String> passwordStreamController =
   StreamController<String>.broadcast();
 
+  StreamController isAllInputsValidStreamController =
+  StreamController<void>.broadcast();
+
   // Initial login object with empty username and password  
   var loginObject = LoginObject('', ''); 
   
-  LoginUseCase? loginUseCase;  // todo remove ?
+  LoginUseCase loginUseCase;
   LoginViewModel(this.loginUseCase);
 
   @override
   void dispose() {
     // Closing the stream controllers to free up resources when the ViewModel is disposed
     userNameStreamController.close();
+    isAllInputsValidStreamController.close();
     passwordStreamController.close();
   }
 
@@ -36,13 +40,16 @@ class LoginViewModel extends BaseViewModel
   Sink get inputPassword => passwordStreamController.sink; // Sink for password input stream
 
   @override
-  Sink get inputUserName => userNameStreamController.sink; // Sink for username input stream
+  Sink get inputUserName => userNameStreamController.sink;// Sink for username input stream
+
+  @override
+  Sink get inputIsAllInputValid => isAllInputsValidStreamController.sink;
 
   @override
   void login() async{
     // Placeholder for the login method which should handle login logic
     // Currently, it throws an UnimplementedError as it is not yet implemented
-    (await loginUseCase?.execute(LoginUseCaseInput(loginObject.userName, loginObject.password)))?.fold(
+    (await loginUseCase.execute(LoginUseCaseInput(loginObject.userName, loginObject.password)))?.fold(
             (failure) => {
           // left -> failure
           print(failure.message)
@@ -63,6 +70,10 @@ class LoginViewModel extends BaseViewModel
   Stream<bool> get outputIsUserNameValid => userNameStreamController.stream
       .map((userName) => _isUserNameValid(userName));
 
+  @override
+  Stream<bool> get outputIsAllInputsValid =>
+      isAllInputsValidStreamController.stream.map((_) => isAllInputsValid());
+
   // Private method to check if the password is valid (not empty in this case)
   bool _isPasswordValid(String password) {
     return password.isNotEmpty;
@@ -73,12 +84,22 @@ class LoginViewModel extends BaseViewModel
     return userName.isNotEmpty;
   }
 
+  _validate() {
+    inputIsAllInputValid.add(null);
+  }
+
+  bool isAllInputsValid() {
+    return _isPasswordValid(loginObject.password) &&
+        _isUserNameValid(loginObject.userName);
+  }
+
   @override
   void setPassword(String password) {
     // Adding the password to the password input stream
     inputPassword.add(password);
     // Updating the login object with the new password while keeping the object immutable
     loginObject = loginObject.copyWith(password: password);
+    _validate();
   }
 
   @override
@@ -87,6 +108,7 @@ class LoginViewModel extends BaseViewModel
     inputUserName.add(userName);
     // Updating the login object with the new username while keeping the object immutable
     loginObject = loginObject.copyWith(userName: userName);
+    _validate();
   }
 }
 
@@ -100,6 +122,7 @@ abstract class LoginViewModelInputs {
   // Sink getters for username and password input streams
   Sink get inputUserName;
   Sink get inputPassword;
+  Sink get inputIsAllInputValid;
 }
 
 // Interface for the outputs of the LoginViewModel
@@ -107,4 +130,5 @@ abstract class LoginViewModelOutputs {
   // Stream getters for validating username and password
   Stream<bool> get outputIsUserNameValid;
   Stream<bool> get outputIsPasswordValid;
+  Stream<bool> get outputIsAllInputsValid;
 }
